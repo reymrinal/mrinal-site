@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mrinal Rai — The Builder's Chronicle</title>
+<meta name="description" content="Co-founder of Intugine Technologies. Builder of products, companies, and ideas that matter."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --void:#04030a;
+  --deep:#0a0814;
+  --parchment:#f5e6c8;
+  --parchment2:#ead9b0;
+  --parchment3:#dfc99a;
+  --gold:#c9960c;
+  --gold2:#e8b422;
+  --gold3:#f5d060;
+  --ember:#c94a1f;
+  --ember2:#e8622f;
+  --jade:#1a6b3a;
+  --ink-light:rgba(245,230,200,0.7);
+  --ink-dim:rgba(245,230,200,0.35);
+  --cinzel:'Cinzel',serif;
+  --crimson:'Crimson Pro',Georgia,serif;
+  --rajdhani:'Rajdhani',sans-serif;
+  --glow:0 0 40px rgba(201,150,12,0.15);
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--void);
+  color:var(--parchment);
+  font-family:var(--crimson);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{
+  position:fixed;
+  width:12px;height:12px;
+  background:var(--gold);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,background 0.2s,width 0.2s,height 0.2s;
+  mix-blend-mode:screen;
+}
+.cursor-ring{
+  position:fixed;
+  width:36px;height:36px;
+  border:1px solid rgba(201,150,12,0.4);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all 0.15s ease;
+}
+body:hover .cursor{opacity:1}
+
+/* ── PARTICLE CANVAS ── */
+#particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.6;
+}
+
+/* ── SCROLL PROGRESS ── */
+.scroll-progress{
+  position:fixed;
+  left:0;top:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--gold),var(--gold3));
+  z-index:200;
+  transition:width 0.1s;
+  width:0%;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  padding:20px 60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(4,3,10,0.95),transparent);
+  transition:all 0.3s;
+}
+
+nav.scrolled{
+  background:rgba(4,3,10,0.97);
+  border-bottom:1px solid rgba(201,150,12,0.1);
+  padding:14px 60px;
+}
+
+.nav-sigil{
+  font-family:var(--cinzel);
+  font-size:14px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+}
+
+.nav-sigil span{
+  color:var(--parchment);
+  opacity:0.5;
+}
+
+.nav-links{
+  display:flex;
+  gap:36px;
+  list-style:none;
+}
+
+.nav-links a{
+  font-family:var(--rajdhani);
+  font-size:12px;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  color:var(--ink-dim);
+  text-decoration:none;
+  transition:color 0.2s;
+  position:relative;
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;left:0;right:0;
+  height:1px;
+  background:var(--gold);
+  transform:scaleX(0);
+  transition:transform 0.3s;
+  transform-origin:left;
+}
+
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* ── MANDALIC DIVIDER ── */
+.mandala-divider{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  justify-content:center;
+  padding:8px 0;
+  opacity:0.4;
+}
+
+.mandala-line{
+  flex:1;
+  max-width:200px;
+  height:1px;
+  background:linear-gradient(to right,transparent,var(--gold));
+}
+
+.mandala-line.right{background:linear-gradient(to left,transparent,var(--gold))}
+
+.mandala-symbol{
+  font-family:var(--cinzel);
+  font-size:18px;
+  color:var(--gold);
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  padding:120px 40px 80px;
+  overflow:hidden;
+  z-index:2;
+}
+
+/* Sanskrit-inspired geometric border */
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:20px;
+  border:1px solid rgba(201,150,12,0.12);
+  pointer-events:none;
+}
+
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:28px;
+  border:1px solid rgba(201,150,12,0.06);
+  pointer-events:none;
+}
+
+/* Corner ornaments */
+.corner{
+  position:absolute;
+  width:60px;height:60px;
+  z-index:3;
+}
+.corner svg{width:100%;height:100%}
+.corner.tl{top:20px;left:20px}
+.corner.tr{top:20px;right:20px;transform:scaleX(-1)}
+.corner.bl{bottom:20px;left:20px;transform:scaleY(-1)}
+.corner.br{bottom:20px;right:20px;transform:scale(-1)}
+
+.hero-chapter{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--gold);
+  opacity:0;
+  animation:fadeInDown 0.8s ease 0.3s forwards;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.hero-chapter::before,.hero-chapter::after{
+  content:'◆';
+  font-size:6px;
+  opacity:0.5;
+}
+
+@keyframes fadeInDown{
+  from{opacity:0;transform:translateY(-16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+.hero-name{
+  font-family:var(--cinzel);
+  font-size:clamp(56px,8vw,120px);
+  font-weight:900;
+  line-height:0.9;
+  letter-spacing:-0.01em;
+  opacity:0;
+  animation:heroReveal 1.2s ease 0.6s forwards;
+  position:relative;
+}
+
+@keyframes heroReveal{
+  from{opacity:0;transform:translateY(30px) scale(0.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.hero-name .first{
+  display:block;
+  color:var(--parchment);
+  text-shadow:0 0 80px rgba(201,150,12,0.2);
+}
+
+.hero-name .last{
+  display:block;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 50%,var(--gold) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200% auto;
+  animation:heroReveal 1.2s ease 0.6s forwards, shimmer 4s ease 2s infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:0% center}
+  50%{background-position:100% center}
+  100%{background-position:0% center}
+}
+
+.hero-dharma{
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:clamp(16px,2vw,22px);
+  color:var(--ink-dim);
+  margin-top:28px;
+  line-height:1.6;
+  max-width:560px;
+  opacity:0;
+  animation:fadeInUp 0.8s ease 1.2s forwards;
+}
+
+.hero-dharma strong{color:var(--ink-light);font-style:normal;font-weight:600}
+
+.hero-roles{
+  display:flex;
+  gap:0;
+  margin-top:40px;
+  opacity:0;
+  animation:fadeInUp 0.8s ease 1.5s forwards;
+  border:1px solid rgba(201,150,12,0.15);
+}
+
+.hero-role{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  padding:12px 24px;
+  border-right:1px solid rgba(201,150,12,0.15);
+  transition:all 0.3s;
+  cursor:default;
+}
+.hero-role:last-child{border-right:none}
+.hero-role:hover{background:rgba(201,150,12,0.05);color:var(--gold)}
+
+.hero-scroll-hint{
+  position:absolute;
+  bottom:40px;
+  font-family:var(--rajdhani);
+  font-size:10px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  opacity:0;
+  animation:fadeIn 1s ease 2.5s forwards;
+}
+
+.scroll-line{
+  width:1px;
+  height:40px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollPulse 2s ease infinite;
+}
+
+@keyframes scrollPulse{
+  0%,100%{opacity:0.3;transform:scaleY(1)}
+  50%{opacity:1;transform:scaleY(1.2)}
+}
+
+/* ── CHAPTER HEADER ── */
+.chapter-header{
+  text-align:center;
+  padding:80px 40px 20px;
+  position:relative;
+  z-index:2;
+}
+
+.chapter-num{
+  font-family:var(--rajdhani);
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:16px;
+  opacity:0.7;
+}
+
+.chapter-title{
+  font-family:var(--cinzel);
+  font-size:clamp(28px,3.5vw,48px);
+  font-weight:700;
+  color:var(--parchment);
+  letter-spacing:0.05em;
+  line-height:1.2;
+}
+
+.chapter-title em{
+  font-style:italic;
+  color:var(--gold);
+  font-family:var(--crimson);
+  font-size:1.1em;
+}
+
+/* ── REVEAL SECTIONS ── */
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.9s ease,transform 0.9s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── STORY SCROLL ── */
+.story-scroll{
+  max-width:760px;
+  margin:0 auto;
+  padding:60px 40px 80px;
+  position:relative;
+  z-index:2;
+}
+
+/* Decorative side border */
+.story-scroll::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,var(--gold) 20%,var(--gold) 80%,transparent);
+  opacity:0.2;
+}
+
+.story-opening{
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:clamp(20px,2.5vw,28px);
+  color:var(--parchment);
+  line-height:1.6;
+  margin-bottom:40px;
+  text-align:center;
+  position:relative;
+}
+
+.story-opening::before{
+  content:'"';
+  font-family:var(--cinzel);
+  font-size:120px;
+  color:var(--gold);
+  opacity:0.08;
+  position:absolute;
+  top:-40px;left:-20px;
+  line-height:1;
+  pointer-events:none;
+}
+
+.story-body-text{
+  font-size:clamp(15px,1.5vw,18px);
+  color:rgba(245,230,200,0.65);
+  line-height:1.9;
+  font-weight:300;
+}
+
+.story-body-text p+p{margin-top:24px}
+
+.story-body-text strong{
+  color:var(--parchment);
+  font-weight:600;
+}
+
+.story-body-text em{
+  color:var(--gold);
+  font-style:italic;
+}
+
+/* Chapter pull quote */
+.pull-quote{
+  margin:48px 0;
+  padding:32px 40px;
+  border-left:3px solid var(--gold);
+  border-right:1px solid rgba(201,150,12,0.15);
+  background:rgba(201,150,12,0.04);
+  position:relative;
+}
+
+.pull-quote::before{
+  content:'✦';
+  position:absolute;
+  top:-12px;left:40px;
+  font-size:12px;
+  color:var(--gold);
+  background:var(--void);
+  padding:0 8px;
+}
+
+.pull-quote p{
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:clamp(18px,2vw,24px);
+  color:var(--parchment);
+  line-height:1.5;
+}
+
+/* ── STATS MANDALA ── */
+.stats-mandala{
+  padding:80px 40px;
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2px;
+}
+
+.stat-cell{
+  padding:48px 32px;
+  text-align:center;
+  border:1px solid rgba(201,150,12,0.08);
+  position:relative;
+  overflow:hidden;
+  transition:all 0.4s;
+  cursor:default;
+}
+
+.stat-cell::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center,rgba(201,150,12,0.06) 0%,transparent 70%);
+  opacity:0;
+  transition:opacity 0.4s;
+}
+
+.stat-cell:hover::before{opacity:1}
+.stat-cell:hover{border-color:rgba(201,150,12,0.25)}
+
+.stat-number{
+  font-family:var(--cinzel);
+  font-size:clamp(40px,4vw,64px);
+  font-weight:700;
+  color:var(--gold);
+  line-height:1;
+  margin-bottom:12px;
+  text-shadow:0 0 40px rgba(201,150,12,0.3);
+}
+
+.stat-desc{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+  line-height:1.5;
+}
+
+/* ── PILLARS - CHAPTER CARDS ── */
+.chapters-wrap{
+  padding:40px 60px 80px;
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:2px;
+  position:relative;
+  z-index:2;
+}
+
+.chapter-card{
+  padding:48px;
+  border:1px solid rgba(201,150,12,0.08);
+  position:relative;
+  overflow:hidden;
+  transition:all 0.4s;
+  cursor:default;
+  background:rgba(201,150,12,0.01);
+}
+
+.chapter-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(201,150,12,0.05) 0%,transparent 60%);
+  opacity:0;
+  transition:opacity 0.4s;
+}
+
+.chapter-card:hover::before{opacity:1}
+.chapter-card:hover{border-color:rgba(201,150,12,0.2)}
+
+/* Roman numeral watermark */
+.chapter-card-num{
+  position:absolute;
+  top:20px;right:28px;
+  font-family:var(--cinzel);
+  font-size:80px;
+  font-weight:900;
+  color:rgba(201,150,12,0.04);
+  line-height:1;
+  pointer-events:none;
+  transition:color 0.4s;
+}
+
+.chapter-card:hover .chapter-card-num{color:rgba(201,150,12,0.08)}
+
+.chapter-card-icon{
+  font-size:28px;
+  margin-bottom:20px;
+  display:block;
+  filter:drop-shadow(0 0 10px rgba(201,150,12,0.3));
+}
+
+.chapter-card-title{
+  font-family:var(--cinzel);
+  font-size:18px;
+  font-weight:600;
+  color:var(--parchment);
+  letter-spacing:0.06em;
+  margin-bottom:16px;
+}
+
+.chapter-card-text{
+  font-family:var(--crimson);
+  font-size:15px;
+  color:var(--ink-dim);
+  line-height:1.75;
+}
+
+/* ── PHILOSOPHY RUNES ── */
+.philosophy-section{
+  padding:80px 60px;
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+}
+
+.philosophy-section::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at center,rgba(201,150,12,0.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.philosophy-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:40px;
+}
+
+.rune-card{
+  text-align:center;
+  padding:48px 32px;
+  position:relative;
+}
+
+.rune-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(201,150,12,0.08);
+  clip-path:polygon(8% 0%,92% 0%,100% 8%,100% 92%,92% 100%,8% 100%,0% 92%,0% 8%);
+}
+
+.rune-card:hover::before{border-color:rgba(201,150,12,0.2)}
+
+.rune-glyph{
+  font-family:var(--cinzel);
+  font-size:48px;
+  font-weight:900;
+  background:linear-gradient(to bottom,var(--gold2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:20px;
+  display:block;
+  text-shadow:none;
+  filter:drop-shadow(0 0 20px rgba(201,150,12,0.4));
+}
+
+.rune-title{
+  font-family:var(--cinzel);
+  font-size:14px;
+  font-weight:600;
+  color:var(--parchment);
+  letter-spacing:0.1em;
+  margin-bottom:16px;
+}
+
+.rune-text{
+  font-family:var(--crimson);
+  font-size:14px;
+  color:var(--ink-dim);
+  line-height:1.75;
+}
+
+/* ── INTUGINE CHRONICLE ── */
+.chronicle{
+  padding:80px 60px;
+  position:relative;
+  z-index:2;
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+
+.chronicle-label{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+  opacity:0.7;
+  margin-bottom:20px;
+}
+
+.chronicle-title{
+  font-family:var(--cinzel);
+  font-size:clamp(28px,3vw,42px);
+  font-weight:700;
+  color:var(--parchment);
+  letter-spacing:0.03em;
+  line-height:1.2;
+  margin-bottom:24px;
+}
+
+.chronicle-title em{
+  display:block;
+  font-family:var(--crimson);
+  font-style:italic;
+  color:var(--gold);
+  font-size:1.1em;
+  letter-spacing:0em;
+}
+
+.chronicle-text{
+  font-size:15px;
+  color:var(--ink-dim);
+  line-height:1.85;
+  font-weight:300;
+}
+
+.chronicle-text p+p{margin-top:16px}
+
+.chronicle-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:32px;
+  font-family:var(--rajdhani);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  text-decoration:none;
+  border-bottom:1px solid rgba(201,150,12,0.3);
+  padding-bottom:4px;
+  transition:all 0.3s;
+}
+
+.chronicle-link:hover{color:var(--gold3);gap:16px;border-color:var(--gold)}
+
+.chronicle-bars{
+  padding:40px;
+  border:1px solid rgba(201,150,12,0.1);
+  background:rgba(201,150,12,0.02);
+  position:relative;
+}
+
+.chronicle-bars::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+}
+
+.bar-row{
+  margin-bottom:28px;
+}
+.bar-row:last-child{margin-bottom:0}
+
+.bar-label-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.bar-name{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+.bar-value{
+  font-family:var(--cinzel);
+  font-size:13px;
+  color:var(--gold);
+}
+
+.bar-track{
+  height:2px;
+  background:rgba(201,150,12,0.1);
+  position:relative;
+  overflow:visible;
+}
+
+.bar-fill{
+  height:100%;
+  background:linear-gradient(to right,var(--ember),var(--gold),var(--gold3));
+  position:relative;
+  transition:width 1.5s cubic-bezier(0.4,0,0.2,1);
+  width:0;
+}
+
+.bar-fill.animated{width:var(--w)}
+
+.bar-fill::after{
+  content:'';
+  position:absolute;
+  right:-4px;top:-3px;
+  width:8px;height:8px;
+  background:var(--gold3);
+  border-radius:50%;
+  box-shadow:0 0 10px var(--gold);
+}
+
+/* ── CONNECT CHAMBER ── */
+.connect-chamber{
+  padding:100px 60px;
+  position:relative;
+  z-index:2;
+  text-align:center;
+  overflow:hidden;
+}
+
+.connect-chamber::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,150,12,0.06) 0%,transparent 70%);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+/* Octagonal border effect */
+.connect-frame{
+  max-width:700px;
+  margin:0 auto;
+  padding:60px;
+  border:1px solid rgba(201,150,12,0.15);
+  position:relative;
+}
+
+.connect-frame::before{
+  content:'';
+  position:absolute;
+  inset:8px;
+  border:1px solid rgba(201,150,12,0.06);
+}
+
+.connect-title{
+  font-family:var(--cinzel);
+  font-size:clamp(28px,3.5vw,48px);
+  font-weight:700;
+  color:var(--parchment);
+  letter-spacing:0.05em;
+  margin-bottom:16px;
+}
+
+.connect-title em{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-style:italic;
+  font-family:var(--crimson);
+}
+
+.connect-sub{
+  font-family:var(--crimson);
+  font-size:16px;
+  color:var(--ink-dim);
+  line-height:1.7;
+  margin-bottom:48px;
+  font-style:italic;
+}
+
+.portal-links{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.portal{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 24px;
+  border:1px solid rgba(201,150,12,0.1);
+  text-decoration:none;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.portal::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:0;
+  background:rgba(201,150,12,0.06);
+  transition:width 0.3s;
+}
+
+.portal:hover::before{width:100%}
+.portal:hover{border-color:rgba(201,150,12,0.3);transform:translateY(-2px)}
+
+.portal-left{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  position:relative;z-index:1;
+}
+
+.portal-name{
+  font-family:var(--cinzel);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.08em;
+  color:var(--parchment);
+}
+
+.portal-handle{
+  font-family:var(--rajdhani);
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--ink-dim);
+  text-transform:uppercase;
+}
+
+.portal-arrow{
+  font-size:18px;
+  color:var(--gold);
+  opacity:0.5;
+  transition:opacity 0.3s,transform 0.3s;
+  position:relative;z-index:1;
+}
+
+.portal:hover .portal-arrow{opacity:1;transform:translateX(4px)}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px 60px;
+  border-top:1px solid rgba(201,150,12,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+  z-index:2;
+}
+
+.footer-mark{
+  font-family:var(--cinzel);
+  font-size:16px;
+  font-weight:700;
+  color:var(--gold);
+  opacity:0.6;
+  letter-spacing:0.1em;
+}
+
+.footer-dharma{
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:13px;
+  color:var(--ink-dim);
+}
+
+.footer-contact{
+  font-family:var(--rajdhani);
+  font-size:11px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  text-decoration:none;
+  opacity:0.6;
+  transition:opacity 0.2s;
+}
+
+.footer-contact:hover{opacity:1}
+
+/* ── NAMASTE DEMOCRACY ── */
+.nd-wrap{
+  padding:40px 60px 80px;
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
+  z-index:2;
+}
+
+.nd-inner{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+
+.nd-badge{
+  display:inline-block;
+  font-family:var(--rajdhani);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--jade);
+  border:1px solid rgba(26,107,58,0.3);
+  padding:5px 14px;
+  margin-bottom:24px;
+  position:relative;
+}
+
+.nd-badge::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:2px;
+  background:var(--jade);
+}
+
+.nd-opening{
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:clamp(18px,2vw,22px);
+  color:var(--parchment);
+  line-height:1.55;
+  margin-bottom:28px;
+  position:relative;
+  padding-left:20px;
+  border-left:2px solid rgba(26,107,58,0.4);
+}
+
+.nd-body{
+  font-size:15px;
+  color:var(--ink-dim);
+  line-height:1.85;
+  font-weight:300;
+  margin-bottom:36px;
+}
+
+.nd-body p+p{margin-top:16px}
+.nd-body strong{color:var(--parchment);font-weight:600}
+
+.nd-pillars{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.nd-pillar{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+}
+
+.nd-pillar-icon{
+  color:var(--jade);
+  font-size:12px;
+  margin-top:3px;
+  flex-shrink:0;
+  opacity:0.8;
+}
+
+.nd-pillar-title{
+  font-family:var(--cinzel);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  color:var(--parchment);
+  margin-bottom:4px;
+}
+
+.nd-pillar-text{
+  font-family:var(--crimson);
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.6;
+}
+
+.nd-visual{
+  border:1px solid rgba(26,107,58,0.15);
+  background:rgba(26,107,58,0.03);
+  padding:2px;
+  position:relative;
+}
+
+.nd-visual::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(26,107,58,0.4),transparent);
+}
+
+.nd-visual-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:48px 32px;
+  text-align:center;
+}
+
+.nd-lotus{
+  margin-bottom:24px;
+  animation:lotusRotate 30s linear infinite;
+}
+
+@keyframes lotusRotate{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+.nd-tagline{
+  font-family:var(--cinzel);
+  font-size:18px;
+  font-weight:700;
+  color:rgba(26,107,58,0.8);
+  letter-spacing:0.06em;
+  margin-bottom:12px;
+}
+
+.nd-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:32px;
+  font-family:var(--rajdhani);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--jade);
+  text-decoration:none;
+  border:1px solid rgba(26,107,58,0.3);
+  padding:12px 24px;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.nd-cta::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(26,107,58,0.06);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.3s;
+}
+
+.nd-cta:hover::before{transform:scaleX(1)}
+.nd-cta:hover{border-color:rgba(26,107,58,0.6);color:#2d9e5a;gap:16px}
+
+
+  font-family:var(--crimson);
+  font-style:italic;
+  font-size:14px;
+  color:var(--ink-dim);
+  line-height:1.6;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .hero{padding:100px 24px 60px}
+  .hero-roles{flex-wrap:wrap}
+  .stats-mandala{grid-template-columns:repeat(2,1fr);padding:60px 24px}
+  .chapters-wrap{grid-template-columns:1fr;padding:40px 24px}
+  .philosophy-inner{grid-template-columns:1fr;padding:0}
+  .chronicle{grid-template-columns:1fr;gap:40px;padding:60px 24px}
+  .portal-links{grid-template-columns:1fr}
+  .nd-inner{grid-template-columns:1fr;gap:40px}
+  .nd-wrap{padding:40px 24px}
+  
+  .connect-frame{padding:32px 24px}
+  footer{padding:30px 24px;flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Particles -->
+<canvas id="particles"></canvas>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-sigil">Mrinal <span>·</span> Rai</div>
+  <ul class="nav-links">
+    <li><a href="#story">The Story</a></li>
+    <li><a href="#pillars">Writings</a></li>
+    <li><a href="#intugine">Intugine</a></li>
+    <li><a href="#namaste-democracy">Namaste Democracy</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <!-- Corner ornaments -->
+  <div class="corner tl">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 58 L2 2 L58 2" stroke="rgba(201,150,12,0.4)" stroke-width="1"/>
+      <path d="M2 30 L16 16 L30 2" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+      <circle cx="2" cy="2" r="3" fill="rgba(201,150,12,0.5)"/>
+      <circle cx="2" cy="2" r="6" fill="none" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="corner tr">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 58 L2 2 L58 2" stroke="rgba(201,150,12,0.4)" stroke-width="1"/>
+      <path d="M2 30 L16 16 L30 2" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+      <circle cx="2" cy="2" r="3" fill="rgba(201,150,12,0.5)"/>
+      <circle cx="2" cy="2" r="6" fill="none" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="corner bl">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 58 L2 2 L58 2" stroke="rgba(201,150,12,0.4)" stroke-width="1"/>
+      <path d="M2 30 L16 16 L30 2" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+      <circle cx="2" cy="2" r="3" fill="rgba(201,150,12,0.5)"/>
+    </svg>
+  </div>
+  <div class="corner br">
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 58 L2 2 L58 2" stroke="rgba(201,150,12,0.4)" stroke-width="1"/>
+      <path d="M2 30 L16 16 L30 2" stroke="rgba(201,150,12,0.2)" stroke-width="0.5"/>
+      <circle cx="2" cy="2" r="3" fill="rgba(201,150,12,0.5)"/>
+    </svg>
+  </div>
+
+  <div class="hero-chapter">The Builder's Chronicle</div>
+
+  <h1 class="hero-name">
+    <span class="first">Mrinal</span>
+    <span class="last">Rai</span>
+  </h1>
+
+  <p class="hero-dharma">
+    <strong>Co-founder of Intugine Technologies.</strong> From a small-town KV ground to building India's supply chain visibility layer — one pivot, one lesson, one batmobile moment at a time.
+  </p>
+
+  <div class="hero-roles">
+    <div class="hero-role">Builder</div>
+    <div class="hero-role">Founder</div>
+    <div class="hero-role">Product Thinker</div>
+    <div class="hero-role">Bengaluru</div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll the scroll
+  </div>
+</section>
+
+<div class="mandala-divider reveal">
+  <div class="mandala-line"></div>
+  <div class="mandala-symbol">✦ ◈ ✦</div>
+  <div class="mandala-line right"></div>
+</div>
+
+<!-- ── STORY ── -->
+<section id="story">
+  <div class="chapter-header reveal">
+    <div class="chapter-num">Chapter I</div>
+    <h2 class="chapter-title">The <em>Batmobile</em> Chronicles</h2>
+  </div>
+
+  <div class="story-scroll reveal">
+    <p class="story-opening">
+      "Sometimes all you have to do is let your batmobile drive you to places where you are needed."
+    </p>
+
+    <div class="story-body-text">
+      <p>I am Mrinal Rai. My childhood is the compilation of every 90s kid meme you see on the internet. KV schooling, middle-class family, <strong>bunking classes just to lose myself on the PE ground playing football</strong> with friends who randomly chose teams and played with pure joy.</p>
+
+      <p>While everyone around me chose PCM and marched toward IIT, my batmobile made a different turn. Commerce Maths. Then SRCC — I didn't even know it was a big deal until relatives started congratulating me. The road less travelled syndrome never ruled my head.</p>
+
+      <div class="pull-quote">
+        <p>"The grass may be greener there — but on my side of the path, the grass is greener too."</p>
+      </div>
+
+      <p>Then came the call from Harshit. My best friend since Class 1 — we literally discovered mid-conversation that we'd been friends a year before we thought. He had built <em>Nimble</em> — a tiny ring that transformed 15 feet of space into a human interaction zone. Gestures. Voice. Pure magic.</p>
+
+      <p>We won B-Plan competitions. We were high on life. Then reality arrived. <strong>Hardware manufacturing in India. No product-market fit. Twenty preschools. Twenty rejections.</strong> We had a full-fledged product but didn't know what real problem it countered.</p>
+
+      <p>Then <em>Flipkart called.</em> During Big Billion Days, they couldn't track ad-hoc vehicles. Simple problem. We understood it. We had days. We built day and night — CEO, CTO, delivery guy, 24-hour support, all of us wearing every hat.</p>
+
+      <p>When that sale ended successfully — <strong>I cannot describe that feeling of victory.</strong> That's how Intugine was born. Not from a master plan. From a batmobile moment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-mandala reveal">
+  <div class="stat-cell">
+    <div class="stat-number">100+</div>
+    <div class="stat-desc">Enterprise<br/>Clients</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">~1M</div>
+    <div class="stat-desc">Trips Tracked<br/>Every Month</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">8+</div>
+    <div class="stat-desc">Years<br/>Building</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">2</div>
+    <div class="stat-desc">Ventures<br/>Intugine + ND</div>
+  </div>
+</div>
+
+<div class="mandala-divider reveal">
+  <div class="mandala-line"></div>
+  <div class="mandala-symbol">◈ ✦ ◈</div>
+  <div class="mandala-line right"></div>
+</div>
+
+<!-- ── PILLARS ── -->
+<section id="pillars">
+  <div class="chapter-header reveal">
+    <div class="chapter-num">Chapter II</div>
+    <h2 class="chapter-title">The <em>Four Paths</em> of Writing</h2>
+  </div>
+
+  <div class="chapters-wrap reveal">
+    <div class="chapter-card">
+      <div class="chapter-card-num">I</div>
+      <span class="chapter-card-icon">⚔</span>
+      <div class="chapter-card-title">The 0→1 Craft</div>
+      <div class="chapter-card-text">The raw, unfiltered truth about taking a problem and turning it into something real. Validation, shipping, failing publicly, iterating quietly. This is where theories go to die and real products are born.</div>
+    </div>
+    <div class="chapter-card">
+      <div class="chapter-card-num">II</div>
+      <span class="chapter-card-icon">🜂</span>
+      <div class="chapter-card-title">The Founder's Dharma</div>
+      <div class="chapter-card-text">Honest stories from the trenches — the pivots nobody planned, the hires that hurt, the 3am moments of doubt, and the rare victories worth every sacrifice. The real version, not the LinkedIn highlight reel.</div>
+    </div>
+    <div class="chapter-card">
+      <div class="chapter-card-num">III</div>
+      <span class="chapter-card-icon">◎</span>
+      <div class="chapter-card-title">Life in Public</div>
+      <div class="chapter-card-text">Football on the PE ground. A dad who built a business from nothing. Snape's complexity and resilience. Cooking as patience. The human behind the builder — because the journey is always about more than the product.</div>
+    </div>
+    <div class="chapter-card">
+      <div class="chapter-card-num">IV</div>
+      <span class="chapter-card-icon">✦</span>
+      <div class="chapter-card-title">The Aspirant's Scroll</div>
+      <div class="chapter-card-text">Practical, earned guidance for students and early-career builders who want to create products or start companies. Not textbook theory — lived experience from someone who went from zero to one and back again.</div>
+    </div>
+  </div>
+</section>
+
+<div class="mandala-divider reveal">
+  <div class="mandala-line"></div>
+  <div class="mandala-symbol">✦ ◈ ✦</div>
+  <div class="mandala-line right"></div>
+</div>
+
+<!-- ── PHILOSOPHY ── -->
+<section>
+  <div class="chapter-header reveal">
+    <div class="chapter-num">Chapter III</div>
+    <h2 class="chapter-title">The <em>Three Laws</em> of Building</h2>
+  </div>
+
+  <div class="philosophy-section reveal">
+    <div class="philosophy-inner">
+      <div class="rune-card">
+        <span class="rune-glyph">I</span>
+        <div class="rune-title">Sweet. Simple. Scalable.</div>
+        <div class="rune-text">The most lovable products aren't the most complex. Clarity over noise. The solution your grandmother understands is usually the right one.</div>
+      </div>
+      <div class="rune-card">
+        <span class="rune-glyph">II</span>
+        <div class="rune-title">Problem First. Always.</div>
+        <div class="rune-text">Every startup journey begins from a problem statement, not an idea. We learned this the hard way with Nimble — and it became the foundation of everything we built after.</div>
+      </div>
+      <div class="rune-card">
+        <span class="rune-glyph">III</span>
+        <div class="rune-title">How You Do It Matters.</div>
+        <div class="rune-text">End results depend on a hundred external factors. How you conduct yourself through the journey is the only thing fully in your control. That's why founders build.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTUGINE ── -->
+<section id="intugine">
+  <div class="chapter-header reveal">
+    <div class="chapter-num">Chapter IV</div>
+    <h2 class="chapter-title">Currently <em>Building</em></h2>
+  </div>
+
+  <div class="chronicle reveal">
+    <div>
+      <div class="chronicle-label">The Company</div>
+      <h3 class="chronicle-title">
+        India's Supply Chain
+        <em>Visibility Layer</em>
+      </h3>
+      <div class="chronicle-text">
+        <p>Intugine Technologies helps enterprises track, monitor, and optimize the movement of goods across road, intracity, and multimodal supply chains. We work with 100+ clients across manufacturing, logistics, e-commerce, retail, and energy.</p>
+        <p>We started as a gesture-control gaming ring called Nimble. We became India's logistics tech backbone. The batmobile always knows the way.</p>
+        <p>Also building <strong>Namaste Democracy</strong> — a non-profit for political literacy and civic participation, because the same principles that build great startups build great societies.</p>
+      </div>
+      <a href="https://intugine.com" target="_blank" class="chronicle-link">Visit Intugine →</a>
+    </div>
+    <div class="chronicle-bars">
+      <div class="bar-row reveal-bar">
+        <div class="bar-label-row">
+          <span class="bar-name">Enterprise Clients</span>
+          <span class="bar-value">100+</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="--w:85%"></div></div>
+      </div>
+      <div class="bar-row reveal-bar">
+        <div class="bar-label-row">
+          <span class="bar-name">Monthly Trips</span>
+          <span class="bar-value">~1M</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="--w:95%"></div></div>
+      </div>
+      <div class="bar-row reveal-bar">
+        <div class="bar-label-row">
+          <span class="bar-name">Industry Sectors</span>
+          <span class="bar-value">5+</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="--w:55%"></div></div>
+      </div>
+      <div class="bar-row reveal-bar">
+        <div class="bar-label-row">
+          <span class="bar-name">Years Building</span>
+          <span class="bar-value">8+</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="--w:75%"></div></div>
+      </div>
+      <div class="bar-row reveal-bar">
+        <div class="bar-label-row">
+          <span class="bar-name">Pivots Survived</span>
+          <span class="bar-value">∞</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="--w:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mandala-divider reveal">
+  <div class="mandala-line"></div>
+  <div class="mandala-symbol">◈ ✦ ◈</div>
+  <div class="mandala-line right"></div>
+</div>
+
+<!-- ── NAMASTE DEMOCRACY ── -->
+<section id="namaste-democracy">
+  <div class="chapter-header reveal">
+    <div class="chapter-num">Chapter V · Beyond Business</div>
+    <h2 class="chapter-title">Namaste <em>Democracy</em></h2>
+  </div>
+
+  <div class="nd-wrap reveal">
+    <div class="nd-inner">
+      <div class="nd-left">
+        <div class="nd-badge">Non-Profit Initiative</div>
+        <p class="nd-opening">
+          "The same principles that build great startups — trust, transparency, participation, accountability — also build great societies."
+        </p>
+        <div class="nd-body">
+          <p>Namaste Democracy is India's first <strong>youth-driven, non-partisan civic initiative</strong> — escalating active engagement from classrooms to polling booths to parliament. Because being a builder doesn't end at the product roadmap.</p>
+          <p>Registered as Jagrati Foundation, it addresses the most overlooked step in democracy: <strong>political literacy</strong>. Based in Bangalore and Bhopal, the movement has already reached 1.8M+ people.</p>
+        </div>
+        <div class="nd-pillars">
+          <div class="nd-pillar">
+            <span class="nd-pillar-icon">◈</span>
+            <div>
+              <div class="nd-pillar-title">16K+ Students Impacted</div>
+              <div class="nd-pillar-text">Taking political literacy directly into classrooms across India</div>
+            </div>
+          </div>
+          <div class="nd-pillar">
+            <span class="nd-pillar-icon">◈</span>
+            <div>
+              <div class="nd-pillar-title">1.8M+ Reach</div>
+              <div class="nd-pillar-text">A growing movement of informed, engaged young citizens</div>
+            </div>
+          </div>
+          <div class="nd-pillar">
+            <span class="nd-pillar-icon">◈</span>
+            <div>
+              <div class="nd-pillar-title">Non-Partisan · Non-Political</div>
+              <div class="nd-pillar-text">Built on trust, transparency, and long-term civic accountability</div>
+            </div>
+          </div>
+        </div>
+        <a href="https://www.namastedemocracy.org" target="_blank" class="nd-cta">Visit Namaste Democracy →</a>
+      </div>
+      <div class="nd-right">
+        <div class="nd-visual">
+          <div class="nd-visual-inner">
+            <div class="nd-lotus">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="160" height="160">
+                <!-- Lotus / Chakra inspired symbol -->
+                <circle cx="100" cy="100" r="2" fill="rgba(201,150,12,0.8)"/>
+                <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(201,150,12,0.15)" stroke-width="1"/>
+                <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(201,150,12,0.08)" stroke-width="1"/>
+                <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(201,150,12,0.04)" stroke-width="1"/>
+                <!-- 8 spokes -->
+                <g stroke="rgba(201,150,12,0.3)" stroke-width="0.5">
+                  <line x1="100" y1="10" x2="100" y2="190"/>
+                  <line x1="10" y1="100" x2="190" y2="100"/>
+                  <line x1="29" y1="29" x2="171" y2="171"/>
+                  <line x1="171" y1="29" x2="29" y2="171"/>
+                </g>
+                <!-- Petals -->
+                <g fill="none" stroke="rgba(201,150,12,0.2)" stroke-width="0.8">
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(0,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(45,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(90,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(135,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(180,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(225,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(270,100,100)"/>
+                  <ellipse cx="100" cy="60" rx="12" ry="28" transform="rotate(315,100,100)"/>
+                </g>
+                <!-- Outer ring dots -->
+                <g fill="rgba(201,150,12,0.4)">
+                  <circle cx="100" cy="14" r="2"/>
+                  <circle cx="156" cy="44" r="2"/>
+                  <circle cx="186" cy="100" r="2"/>
+                  <circle cx="156" cy="156" r="2"/>
+                  <circle cx="100" cy="186" r="2"/>
+                  <circle cx="44" cy="156" r="2"/>
+                  <circle cx="14" cy="100" r="2"/>
+                  <circle cx="44" cy="44" r="2"/>
+                </g>
+                <text x="100" y="107" text-anchor="middle" font-family="Cinzel,serif" font-size="11" fill="rgba(201,150,12,0.7)" letter-spacing="2">ND</text>
+              </svg>
+            </div>
+            <div class="nd-tagline">नमस्ते Democracy</div>
+            <div class="nd-sub-tagline">Building informed citizens.<br/>Building stronger India.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mandala-divider reveal">
+  <div class="mandala-line"></div>
+  <div class="mandala-symbol">✦ ◈ ✦</div>
+  <div class="mandala-line right"></div>
+</div>
+
+<!-- ── CONNECT ── -->
+<section id="connect" class="connect-chamber reveal">
+  <div class="connect-frame">
+    <div class="chapter-num" style="margin-bottom:16px">Chapter VI · Final</div>
+    <h2 class="connect-title">Enter the <em>Chronicle</em></h2>
+    <p class="connect-sub">Follow the unfiltered journey from problem to product — across platforms, across pivots, across a life worth building in public.</p>
+
+    <div class="portal-links">
+      <a href="https://www.linkedin.com/in/mrinalrai/" target="_blank" class="portal">
+        <div class="portal-left">
+          <div class="portal-name">LinkedIn</div>
+          <div class="portal-handle">@mrinalrai · Primary</div>
+        </div>
+        <div class="portal-arrow">→</div>
+      </a>
+      <a href="https://reymrinal.medium.com/" target="_blank" class="portal">
+        <div class="portal-left">
+          <div class="portal-name">Medium</div>
+          <div class="portal-handle">@reymrinal · Long-form</div>
+        </div>
+        <div class="portal-arrow">→</div>
+      </a>
+      <a href="https://intugine.com" target="_blank" class="portal">
+        <div class="portal-left">
+          <div class="portal-name">Intugine</div>
+          <div class="portal-handle">intugine.com · Company</div>
+        </div>
+        <div class="portal-arrow">→</div>
+      </a>
+      <a href="mailto:mrinal@intugine.com" class="portal">
+        <div class="portal-left">
+          <div class="portal-name">Email</div>
+          <div class="portal-handle">mrinal@intugine.com</div>
+        </div>
+        <div class="portal-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-mark">M · R</div>
+  <div class="footer-dharma">"Sometimes all you have to do is let your batmobile drive you."</div>
+  <a href="mailto:mrinal@intugine.com" class="footer-contact">mrinal@intugine.com</a>
+</footer>
+
+<script>
+// ── CURSOR ────────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';
+  cursor.style.top=my+'px';
+});
+
+function animRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,.portal,.stat-cell,.chapter-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='20px';
+    cursor.style.height='20px';
+    cursor.style.background='var(--gold3)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='12px';
+    cursor.style.height='12px';
+    cursor.style.background='var(--gold)';
+  });
+});
+
+// ── PARTICLES (floating embers) ───────────────────────────────────────────────
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+
+class Particle{
+  constructor(){this.reset(true)}
+  reset(init=false){
+    this.x=Math.random()*W;
+    this.y=init?Math.random()*H:H+10;
+    this.size=Math.random()*1.5+0.3;
+    this.speedY=Math.random()*0.4+0.1;
+    this.speedX=(Math.random()-0.5)*0.3;
+    this.opacity=Math.random()*0.5+0.1;
+    this.fade=Math.random()*0.003+0.001;
+    const r=Math.random();
+    if(r<0.5) this.color='rgba(201,150,12,';
+    else if(r<0.8) this.color='rgba(232,180,34,';
+    else this.color='rgba(201,74,31,';
+  }
+  update(){
+    this.y-=this.speedY;
+    this.x+=this.speedX;
+    this.opacity-=this.fade;
+    if(this.y<-10||this.opacity<=0) this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=this.color+this.opacity+')';
+    ctx.fill();
+  }
+}
+
+for(let i=0;i<120;i++) particles.push(new Particle());
+
+function animParticles(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{p.update();p.draw()});
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+// ── SCROLL EFFECTS ────────────────────────────────────────────────────────────
+const progress=document.getElementById('scrollProgress');
+const nav=document.getElementById('nav');
+
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY;
+  const max=document.body.scrollHeight-window.innerHeight;
+  progress.style.width=(s/max*100)+'%';
+  nav.classList.toggle('scrolled',s>60);
+});
+
+// ── REVEAL ON SCROLL ──────────────────────────────────────────────────────────
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // Animate bars
+      e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('animated'));
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+// Also observe chronicle section for bars
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-fill').forEach((b,i)=>{
+        setTimeout(()=>b.classList.add('animated'),i*150);
+      });
+    }
+  });
+},{threshold:0.3});
+
+document.querySelectorAll('.chronicle-bars').forEach(el=>barObs.observe(el));
+
+// ── INTERACTIVE HERO PARALLAX ─────────────────────────────────────────────────
+const hero=document.querySelector('.hero');
+hero.addEventListener('mousemove',e=>{
+  const rx=(e.clientX/window.innerWidth-0.5)*6;
+  const ry=(e.clientY/window.innerHeight-0.5)*6;
+  document.querySelector('.hero-name').style.transform=`perspective(1000px) rotateY(${rx*0.3}deg) rotateX(${-ry*0.3}deg)`;
+});
+
+hero.addEventListener('mouseleave',()=>{
+  document.querySelector('.hero-name').style.transform='';
+});
+
+// ── STAT COUNTER ANIMATION ────────────────────────────────────────────────────
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.stat-number').forEach(el=>{
+        el.style.animation='fadeIn 0.5s ease forwards, statPulse 0.6s ease';
+      });
+    }
+  });
+},{threshold:0.5});
+
+document.querySelectorAll('.stats-mandala').forEach(el=>statObs.observe(el));
+</script>
+</body>
+</html>
