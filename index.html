@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Mrinal Rai — The Builder's Chronicle</title>
 <meta name="description" content="Co-founder of Intugine Technologies. Builder of products, companies, and ideas that matter."/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%2304030a'/><rect x='2' y='2' width='60' height='60' fill='none' stroke='%23c9960c' stroke-width='1' opacity='0.4'/><rect x='6' y='6' width='52' height='52' fill='none' stroke='%23c9960c' stroke-width='0.5' opacity='0.2'/><text x='32' y='40' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-weight='bold' fill='%23c9960c' letter-spacing='2'>MR</text><line x1='16' y1='48' x2='48' y2='48' stroke='%23c9960c' stroke-width='0.5' opacity='0.4'/></svg>"/>
+<meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%2304030a'/><text x='32' y='40' text-anchor='middle' font-family='Georgia,serif' font-size='22' font-weight='bold' fill='%23c9960c'>MR</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -22,8 +24,8 @@
   --ember:#c94a1f;
   --ember2:#e8622f;
   --jade:#1a6b3a;
-  --ink-light:rgba(245,230,200,0.7);
-  --ink-dim:rgba(245,230,200,0.35);
+  --ink-light:rgba(255,255,255,0.92);
+  --ink-dim:rgba(255,255,255,0.72);
   --cinzel:'Cinzel',serif;
   --crimson:'Crimson Pro',Georgia,serif;
   --rajdhani:'Rajdhani',sans-serif;
@@ -110,6 +112,8 @@ nav.scrolled{
   color:var(--gold);
   letter-spacing:0.15em;
   text-transform:uppercase;
+  display:flex;
+  align-items:center;
 }
 
 .nav-sigil span{
@@ -444,7 +448,7 @@ nav.scrolled{
 
 .story-body-text{
   font-size:clamp(15px,1.5vw,18px);
-  color:rgba(245,230,200,0.65);
+  color:rgba(255,255,255,0.78);
   line-height:1.9;
   font-weight:300;
 }
@@ -452,12 +456,12 @@ nav.scrolled{
 .story-body-text p+p{margin-top:24px}
 
 .story-body-text strong{
-  color:var(--parchment);
+  color:#ffffff;
   font-weight:600;
 }
 
 .story-body-text em{
-  color:var(--gold);
+  color:var(--gold2);
   font-style:italic;
 }
 
@@ -1204,7 +1208,16 @@ footer{
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <div class="nav-sigil">Mrinal <span>·</span> Rai</div>
+  <div class="nav-sigil">
+  <svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="margin-right:10px;vertical-align:middle">
+    <rect width="64" height="64" fill="#04030a"/>
+    <rect x="2" y="2" width="60" height="60" fill="none" stroke="#c9960c" stroke-width="1.5" opacity="0.5"/>
+    <rect x="7" y="7" width="50" height="50" fill="none" stroke="#c9960c" stroke-width="0.5" opacity="0.2"/>
+    <text x="32" y="41" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="#c9960c" letter-spacing="2">MR</text>
+    <line x1="14" y1="49" x2="50" y2="49" stroke="#c9960c" stroke-width="0.5" opacity="0.4"/>
+  </svg>
+  Mrinal <span>·</span> Rai
+</div>
   <ul class="nav-links">
     <li><a href="#story">The Story</a></li>
     <li><a href="#pillars">Writings</a></li>
